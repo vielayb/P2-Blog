@@ -1,17 +1,19 @@
-<section class="hero">
+<div class="container">
+      <section class="hero">
         <div class="hero-form">
-            <form>
-                <!-- username -->
-                <label for="user-name">Enter your username:</label>
-                <input type="text" placeholder="User Name" name="user-name" id="user-name"
-                <!-- password -->
-                <label for="password">Enter your password:</label>
-                <input type="text" placeholder="Password" name="password" id="password" class="form-input"/>
-                <!-- submit button-->
-                <button type="submit">
-                    Log In
-                </button>
-            </form>
+          <form>
+            <!-- username -->
+            <label for="user-name">Enter your username:</label>
+            <input type="text" placeholder="User Name" name="user-name" id="user-name"
+            <!-- password -->
+            <label for="password">Enter your password:</label>
+            <input type="text" placeholder="Password" name="password" id="password" class="form-input"/>
+            <!-- submit button-->
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+             <a href="/"> Login!</a>
+              <i class="material-icons right">send</i>
+          </button>
+          </form>
             <h3>Sign Up Today!</h3>
             <p>Fill out the following to create an account!</p>
             <form>
@@ -31,9 +33,14 @@
                 <label for="password">Enter a password:</label>
                 <input type="text" placeholder="Password" name="password" id="password" class="form-input"/>
                 <!-- submit button-->
-                <button type="submit">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
                     Create Account!
+                    <i class="material-icons right">send</i>
                 </button>
             </form> 
         </div>
     </section>
+
+    <script src="/javascript/login.js">
+
+    </script>
