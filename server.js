@@ -14,8 +14,14 @@ app.get('/', function (req, res) {
     res.render('home');
 });
 
-app.get('/dashboard', function (req, res) {
-    res.render('dashboard');
+app.get('/bolgs', function (req, res) {
+    const posts = {blogs:[{img:"http://via.placeholder.com/300", post:'hello'},{img:"http://via.placeholder.com/300", post:'hello'},{img:"http://via.placeholder.com/300", post:'hello'}]}
+    res.render('blog', posts)
+});
+
+
+app.get('/post', function (req, res) {
+    res.render('post');
 });
 
 app.listen(PORT, function(){
