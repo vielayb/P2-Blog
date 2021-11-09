@@ -5,19 +5,19 @@ const routes = require('./controllers');
 const path = require('path');
 
 //Using cookies reference 14.2.5
-const session = require('express-session');
+// const session = require('express-session');
 
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+// const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-const sess = {
-  secret: 'Super secret secret',
-  cookie: {},
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize
-  })
-};
+// const sess = {
+//   secret: 'Super secret secret',
+//   cookie: {},
+//   resave: false,
+//   saveUninitialized: true,
+//   store: new SequelizeStore({
+//     db: sequelize
+//   })
+// };
 
 
 //adding handlebars reference 14.1.3
@@ -37,7 +37,7 @@ app.engine('handlebars', hbs.engine);
 // app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 //Using cookies reference 14.2.5
-app.use(session(sess));
+// app.use(session(sess));
 
 
 // turn on routes
