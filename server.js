@@ -5,9 +5,9 @@ const routes = require('./controllers');
 const path = require('path');
 
 //Using cookies reference 14.2.5
-const session = require('express-session');
+// const session = require('express-session');
 
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+// const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // const sess = {
 //   secret: 'Super secret secret',
@@ -15,7 +15,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 //   resave: false,
 //   saveUninitialized: true,
 //   store: new SequelizeStore({
-//    // db: sequelize
+//    db: sequelize
 //   })
 // };
 
