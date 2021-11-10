@@ -1,23 +1,22 @@
 const express = require('express');
 const routes = require('./controllers');
-//for sequelize, not sure if we need it, we'll keep it commented out for now
-// const sequelize = require('./config/connection');
+const sequelize = require('./config/connections');
 const path = require('path');
 
 //Using cookies reference 14.2.5
-// const session = require('express-session');
+const session = require('express-session');
 
-// const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-// const sess = {
-//   secret: 'Super secret secret',
-//   cookie: {},
-//   resave: false,
-//   saveUninitialized: true,
-//   store: new SequelizeStore({
-//    db: sequelize
-//   })
-// };
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+   db: sequelize
+  })
+};
 
 
 //adding handlebars reference 14.1.3
@@ -37,12 +36,13 @@ app.engine('handlebars', hbs.engine);
 // app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 //Using cookies reference 14.2.5
-//app.use(session(sess));
+app.use(session(sess));
 
 
 // turn on routes
 app.use(routes);
 
-app.listen(PORT, function(){
-    console.log('http://localhost:3000')
-});
+// turn on connection to db and server
+sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => console.log('Now listening'));
+  });

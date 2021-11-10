@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
 
-router.get('/', function (req, res) {
-  res.render('home');
+router.get('/', (req, res) => {
+  console.log(req.session);
 });
 
 router.get('/blogs', function (req, res) {
