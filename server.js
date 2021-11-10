@@ -37,7 +37,7 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 //Using cookies reference 14.2.5
 app.use(session(sess));
-
+app.use(express.static('public/stylesheets/images'));
 
 // turn on routes
 app.use(routes);
