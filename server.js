@@ -18,14 +18,12 @@ const sess = {
   })
 };
 
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 //adding handlebars reference 14.1.3
 var exphbs  = require('express-handlebars');
 const hbs = exphbs.create({});
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
