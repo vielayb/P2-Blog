@@ -15,4 +15,8 @@ router.get('/post', function (req, res) {
   res.render('post');
 });
 
+router.get('/dashboard', function (req, res) {
+  res.render('dashboard');
+});
+
 module.exports = router;
