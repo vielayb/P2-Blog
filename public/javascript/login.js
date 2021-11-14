@@ -39,7 +39,7 @@ async function loginFormHandler(event) {
             }),
             headers: { 'Content-Type': 'application/json' }
         });
-
+// Maybe we should change dashboard inthe if statement reference 14.2.4
         if (response.ok) {
             document.location.replace('/dashboard');
         } else {
