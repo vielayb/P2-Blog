@@ -1,4 +1,4 @@
-<nav>
+{{!-- <nav>
             <div class="nav-wrapper teal">
               <a href="/" class="brand-logo">DEBUGallery</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -7,15 +7,16 @@
                 <li><a href="/">Logout</a></li>
               </ul>
             </div>
-          </nav>
+          </nav> --}}
 <header>
         <nav>
             <div class="nav-wrapper teal">
-              <a href="./login.index.html" class="brand-logo">DEBUGallery</a>
+              <a href="/" class="brand-logo">DEBUGallery</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#postit">Home</a></li>
-                <li><a href="#posts"><span class="new badge">4</span>Dashboard</a></li>
-                <li><a href="#logout">Logout</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard"><span class="new badge">4</span>Dashboard</a></li>
+                
+                <li id="logout">Logout</li>
               </ul>
             </div>
           </nav>
@@ -75,6 +76,5 @@
 </div>
 {{/if}}
 
-<script src="/public/assets/js/index.js"></script>
-
-<script src="/public/javascript/add-post.js"></script>
+<script src="/assets/js/index.js"></script>
+<script src="/javascript/add-post.js"></script>
