@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,14 +11,32 @@
     <link rel="stylesheet" href="/stylesheets/css/upload.css">
     <title>DEBUGallery</title>
 </head>
+
 <body>
-  
+  <div class="wrapper">
+    <header>
+      <h1>
+        <a href="/">DEBUGallery</a>
+      </h1>
+      <nav>
+        <div class="nav-wrapper teal">
+        {{#if loggedIn}}
+        <a href="/dashboard">dashboard</a>
+        <button id="logout" class="btn-no-style">logout</button>
+        {{else}}
+        <a href="/login">login</a>
+        {{/if}}
+        </div>
+      </nav>
+
+    </header>
     <main>
-    {{{body}}}
+      {{{ body }}}
     </main>
 
-    <!--FOOTER-->
-    <footer class="page-footer grey darken-3">
+    {{!-- Beginning of footer --}}
+    <footer>
+            <footer class="page-footer grey darken-3">
         <div class="container">
           <div class="row">
             <div class="col l6 s12">
@@ -39,8 +58,12 @@
           <a class="grey-text text-lighten-4 right" href="#!"></a>
           </div>
         </div>
-      </footer>
-    </div>
-    <script src="/javascript/logout.js"></script>
-  </body>
+    </footer>
+  </div>
+  
+  {{#if loggedIn}}
+  <script src="/javascript/logout.js"></script>
+  {{/if}}
+</body>
+
 </html>
