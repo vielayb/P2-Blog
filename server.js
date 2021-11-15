@@ -1,11 +1,12 @@
-const express = require('express');
-const routes = require('./controllers');
-const sequelize = require('./config/connections');
 const path = require('path');
-
-//Using cookies reference 14.2.5
+const express = require('express');
 const session = require('express-session');
+const exphbs = require('express-handlebars');
 
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+const sequelize = require("./config/connection");
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
@@ -14,33 +15,25 @@ const sess = {
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
-   db: sequelize
+    db: sequelize
   })
 };
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-//adding handlebars reference 14.1.3
-var exphbs  = require('express-handlebars');
-const hbs = exphbs.create({});
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-//I added this, reference just-tech-news 14.1.4
-app.engine('handlebars', hbs.engine);
-/*what was previously here*/
-// app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
-//Using cookies reference 14.2.5
 app.use(session(sess));
-app.use(express.static('public/stylesheets/images'));
 
-// turn on routes
-app.use(routes);
+const helpers = require('./utils/helpers');
 
-// turn on connection to db and server
+const hbs = exphbs.create({ helpers });
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(require('./controllers/'));
+
 sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log('Now listening'));
-  });
+  app.listen(PORT, () => console.log('Now listening'));
+});

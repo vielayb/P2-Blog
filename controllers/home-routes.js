@@ -1,24 +1,49 @@
 const router = require('express').Router();
-const { User, Post, Comment, } = require('../models');
+const sequelize = require('../config/connection');
+const { Post, User, Comment, Vote } = require('../models');
 
+// get all posts for homepage
 router.get('/', (req, res) => {
-  res.render('home');
+  console.log('======================');
+  Post.findAll({
+    attributes: [
+      'id',
+      'post_url',
+      'title',
+      'created_at',
+      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+    ],
+    include: [
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      },
+      {
+        model: User,
+        attributes: ['username']
+      }
+    ]
+  })
+    .then(dbPostData => {
+      const posts = dbPostData.map(post => post.get({ plain: true }));
+
+      res.render('homepage', {
+        posts,
+        loggedIn: req.session.loggedIn
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
-router.get('/blogs', function (req, res) {
-  const posts = {blogs:[{id:"1", img:"http://via.placeholder.com/300", post:'hello'},{id:"2", img:"http://via.placeholder.com/300", post:'hello'},{id:"3", img:"http://via.placeholder.com/300", post:'hello'}]}
-  res.render('blog', posts)
-});
-
-router.get('/post', function (req, res) {
-  res.render('post');
-});
-
-router.get('/dashboard', function (req, res) {
-  res.render('dashboard');
-});
-
-router.get('/dashboard/edit/:id', (req, res) => {
+// get single post
+router.get('/post/:id', (req, res) => {
   Post.findOne({
     where: {
       id: req.params.id
@@ -27,7 +52,8 @@ router.get('/dashboard/edit/:id', (req, res) => {
       'id',
       'post_url',
       'title',
-      'created_at'
+      'created_at',
+      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
     ],
     include: [
       {
@@ -49,13 +75,27 @@ router.get('/dashboard/edit/:id', (req, res) => {
         res.status(404).json({ message: 'No post found with this id' });
         return;
       }
-      const post = dbPostData.get({plain:true});
-      res.render('singlepost', post);
+
+      const post = dbPostData.get({ plain: true });
+
+      res.render('single-post', {
+        post,
+        loggedIn: req.session.loggedIn
+      });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
+});
+
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('login');
 });
 
 module.exports = router;
