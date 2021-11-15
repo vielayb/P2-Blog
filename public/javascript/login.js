@@ -41,7 +41,7 @@ async function loginFormHandler(event) {
         });
 
         if (response.ok) {
-            document.location.replace('/dashboard');
+            document.location.replace('/blogs');
         } else {
             alert(response.statusText);
         }
