@@ -21,6 +21,22 @@ async function newFormHandler(event) {
       alert(response.statusText);
     }
   }
+  const widgetBtn = document.querySelector("#upload_widget");
+  widgetBtn.addEventListener('click', function () {
+      window.cloudinary.createUploadWidget({
+          cloudName: 'dom1gkn9c',
+          uploadPreset: 'ml_default'
+      }, (error, result) => {
+          if (!error && result && result.event === "success") {
+              console.log('Done! Here is the image info: ', result.info);
+              console.log(result.info.public_id);
+              document.querySelector('#upLoad').src = result.info.url;
+              image = result.info.url;
+          }
+      }
+      ) .open();
+  })
+  
   
   document.querySelector('.new-post-form').addEventListener('submit', newFormHandler);
   
