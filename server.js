@@ -36,5 +36,5 @@ app.use(require('./controllers/'));
 app.use(express.static('public/stylesheets/images'));
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  app.listen(PORT, () => console.log('Now listening to http://localhost:3000'));
 });
